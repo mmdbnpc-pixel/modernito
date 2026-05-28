@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سفارشات</title>
+    <link rel="stylesheet" href="assets/img/tailwind.min.css" />
+
+    <style>
+        @font-face {
+            font-family: "IRANSansX";
+            src: url("assets/Farsi-Digits-Without-Latin/IRANSansX-Regular.woff2") format("woff2");
+            font-weight: 400;
+        }
+
+        @font-face {
+            font-family: "IRANSansX";
+            src: url("assets/Farsi-Digits-Without-Latin/IRANSansX-Bold.woff2") format("woff2");
+            font-weight: 700;
+        }
+
+        * {
+            font-family: "IRANSansX", sans-serif !important;
+        }
+
+        body {
+            font-family: "IRANSansX", sans-serif;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .animate-card {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-400 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-500 {
+            animation-delay: 0.5s;
+        }
+
+        .delay-600 {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100">
+
+    <header class="relative flex items-center justify-between px-6 py-4 
+               bg-white text-green-800 
+               md:bg-green-900 md:text-white">
+
+        <!-- بخش راست: دکمه همبرگری -->
+        <!-- در موبایل و دسکتاپ نمایش داده میشه (کلاس md:hidden حذف شد) -->
+        <button id="menuBtn"
+            class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-black/10 transition ml-4">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+
+        <!-- لوگو (وسط) -->
+        <!-- در موبایل نمایش داده میشه، در دسکتاپ مخفی -->
+        <div class="text-xl font-bold absolute left-0/2 transform -translate-x-1/2">
+            Modernito
+        </div>
+
+        <!-- بخش چپ: پروفایل کاربر -->
+        <!-- کل این بخش در موبایل مخفی و در دسکتاپ نمایش داده میشه -->
+        <div class="relative ml-4 items-left hidden md:flex">
+            <!-- دکمه پروفایل (عکس + فلش) -->
+            <button id="profileBtn"
+                class="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-full hover:bg-white/20 transition">
+                <!-- عکس گرد کاربر -->
+                <img src="assets/img/boxgol1.png" alt="User"
+                    class="w-8 h-8 rounded-full object-cover border border-white/30">
+                <!-- فلش کوچک -->
+                <svg class="w-4 h-4 transition-transform duration-200" id="profileArrow" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+
+            <!-- باکش نمایش مشخصات کاربر (Dropdown) -->
+            <div id="userProfileDropdown"
+                class="absolute top-full left-0 mt-2 w-64 bg-green-800 backdrop-blur-xl border border-green-600 rounded-2xl shadow-3xl z-50 hidden flex-col overflow-hidden">
+
+                <div class="p-4 flex flex-col gap-3">
+                    <div class="flex items-center gap-3 border-b border-green-700 pb-3">
+                        <img src="assets/img/boxgol1.png" class="w-12 h-12 rounded-full">
+                        <div>
+                            <p class="font-bold text-white">نام کاربر</p>
+                            <p class="text-sm text-green-200">user@example.com</p>
+                        </div>
+                    </div>
+                    <a href="#"
+                        class="block px-3 py-2 rounded text-center hover:bg-white/10 text-white transition">پروفایل
+                        من</a>
+                    <a href="#"
+                        class="block px-3 py-2 rounded text-center hover:bg-white/10 text-white transition">داشبورد</a>
+                    <a href="#"
+                        class="block px-3 py-2 rounded text-center hover:bg-red-500/20 text-red-300 transition">خروج</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- منوی بازشونده اصلی (سمت راست، زیر دکمه همبرگری) -->
+        <!-- در موبایل و دسکتاپ نمایش داده میشه -->
+        <!-- در دسکتاپ کمی تغییر استایل دادیم که بهتر دیده بشه -->
+        <div id="mobileMenu"
+            class="absolute top-full right-0 mt-2 mr-4 w-64 bg-green-900 text-white backdrop-blur-xl border border-gray-700 rounded-2xl shadow-3xl z-50 hidden flex-col overflow-y-auto">
+            <div class="flex flex-col p-8 gap-4 h-20vh md:min-h-[40vh]">
+                <a href="#"
+                    class="block px-4 py-3 rounded-lg hover:bg-white/10 transition text-white text-lg font-medium">داشبورد</a>
+                <a href="#"
+                    class="block px-4 py-3 rounded-lg hover:bg-white/10 transition text-white text-lg font-medium">فروشگاه‌ها</a>
+                <a href="#"
+                    class="block px-4 py-3 rounded-lg hover:bg-white/10 transition text-white text-lg font-medium">ایجاد
+                    فروشگاه</a>
+                <a href="#"
+                    class="block px-4 py-3 rounded-lg hover:bg-white/10 transition text-white text-lg font-medium">تماس
+                    با ما</a>
+            </div>
+        </div>
+    </header>
+
+    <h1 class="text-center text-green-800 font-bold text-4xl p-12 animate-card"> سفارشات</h1>
+    <!-- <div class="glassmorphism p-6 md:p-12 bg-gray-100 border border-green-600 w-fit shadow-lg p-4 v[100px] rounded-xl">
+    </div> -->
+    <div
+        class="w-full max-w-4xl mx-auto bg-white rounded-3xl shadow-md border border-green-300 p-4 md:p-6 animate-card">
+
+        <!-- فیلترها -->
+        <div class="flex flex-col md:flex-row gap-4">
+
+            <!-- سرچ -->
+            <div class="flex-1">
+                <input type="text" placeholder="جستجو: شماره سفارش / نام / موبایل..."
+                    class="w-full md:w-72  border border-green-600 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-green-500">
+            </div>
+
+            <!-- وضعیت -->
+            <select class="w-full md:w-72 border border-green-600 rounded-xl px-4 py-3 bg-white">
+                <option>همه وضعیت‌ها</option>
+            </select>
+
+            <!-- پرداخت -->
+            <select class="w-full md:w-72 border border-green-600 rounded-xl px-4 py-3 bg-white">
+                <option>همه پرداخت‌ها</option>
+            </select>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="container mx-auto p-4 md:p-8 min-h-screen animate-card">
+        <div class="overflow-x-auto bg-white rounded-2xl shadow-sm border border-green-200">
+            <table class="w-full text-right border-collapse">
+                <thead>
+                    <tr class="text-green-700 text-xs uppercase tracking-wider border-b border-gray-100">
+                        <th class="py-4 px-6 font-semibold">شماره سفارش</th>
+                        <th class="py-4 px-6 font-semibold">مشتری</th>
+                        <th class="py-4 px-6 font-semibold">وضعیت</th>
+                        <th class="py-4 px-6 font-semibold">مبلغ (تومان)</th>
+                        <th class="py-4 px-6 font-semibold text-center">عملیات</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700 divide-y divide-gray-50">
+
+                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                        <td class="py-4 px-6 font-mono text-sm text-blue-600">ORD-1779390709525</td>
+                        <td class="py-4 px-6">
+                            <div class="text-sm font-medium">مسعود فیروزاده مینابی</div>
+                            <div class="text-xs text-gray-400">09394012115</div>
+                        </td>
+                        <td class="py-4 px-6">
+                            <span
+                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                                پرداخت شده
+                            </span>
+                        </td>
+                        <td class="py-4 px-6 font-medium">7,500,000</td>
+                        <td class="py-4 px-6 text-center">
+                            <button
+                                class="text-green-700 hover:text-green-500 font-medium text-sm flex items-center justify-center gap-1 mx-auto"
+                                onclick="openOrderModal({
+                orderId: 'ORD-1779390709525',
+                customerName: 'مسعود فیروزاده مینابی',
+                customerPhone: '09394012115',
+                status: 'پرداخت شده',
+                statusClass: 'bg-green-100 text-green-700',
+                amount: '7,500,000',
+                address: 'تهران، خیابان ولیعصر، کوچه سوم، پلاک ۱۲',
+                items: [
+                  { name: 'مدل پروانه', color: 'قهوه‌ای شکلاتی', qty: 1, price: '5,700,000' },
+                  { name: 'پایه نگهدارنده', color: 'مشکی', qty: 1, price: '1,800,000' }
+                ]
+              })">
+                                <span>جزئیات</span>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr class="hover:bg-gray-50 transition-colors duration-200">
+                        <td class="py-4 px-6 font-mono text-sm text-blue-600">ORD-1779574818611</td>
+                        <td class="py-4 px-6">
+                            <div class="text-sm font-medium">حامد عباسی</div>
+                            <div class="text-xs text-gray-400">09335127285</div>
+                        </td>
+                        <td class="py-4 px-6">
+                            <span
+                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700">
+                                در انتظار
+                            </span>
+                        </td>
+                        <td class="py-4 px-6 font-medium">7,500,000</td>
+                        <td class="py-4 px-6 text-center">
+                            <button class="text-green-700 hover:text-green-500 font-medium text-sm" onclick="openOrderModal({
+                orderId: 'ORD-1779574818611',
+                customerName: 'حامد عباسی',
+                customerPhone: '09335127285',
+                status: 'در انتظار',
+                statusClass: 'bg-yellow-100 text-yellow-700',
+                amount: '7,500,000',
+                address: 'اصفهان، خیابان چهارباغ، ساختمان آریا، واحد ۴',
+                items: [
+                  { name: 'مدل کلاسیک', color: 'سفید', qty: 2, price: '3,750,000' }
+                ]
+              })">
+                                جزئیات
+                            </button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Modal Section (Initially Hidden) -->
+    <div id="orderModalOverlay"
+        class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/50 backdrop-blur-sm opacity-0 transition-opacity duration-300 ease-in-out">
+        <!-- Modal Content -->
+        <div id="orderModalContent" class="w-full max-w-2xl rounded-3xl bg-white shadow-2xl border border-emerald-100
+           transform scale-95 opacity-0 transition-all duration-300 ease-out">
+            <!-- Header -->
+            <div
+                class="flex items-start justify-between border-b border-emerald-100 px-6 py-5 bg-emerald-50/70 rounded-t-3xl">
+                <div>
+                    <h2 class="text-xl font-bold text-emerald-900">جزئیات سفارش</h2>
+                    <p id="modalOrderId" class="mt-1 text-sm text-emerald-700 font-mono"></p>
+                </div>
+
+                <button onclick="closeOrderModal()"
+                    class="rounded-full p-2 text-emerald-600 hover:bg-emerald-100 hover:text-emerald-800 transition-colors duration-200"
+                    aria-label="بستن">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="max-h-[75vh] overflow-y-auto px-6 py-5 space-y-6">
+                <!-- Info Cards -->
+                <div class="grid gap-4 md:grid-cols-3">
+                    <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4 shadow-sm">
+                        <p class="text-xs font-bold uppercase tracking-wider text-emerald-500">مبلغ کل</p>
+                        <p id="modalAmount" class="mt-2 text-lg font-bold text-emerald-900"></p>
+                    </div>
+
+                    <div class="rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm">
+                        <p class="text-xs font-bold uppercase tracking-wider text-emerald-500">وضعیت</p>
+                        <span id="modalStatus"
+                            class="mt-2 inline-flex rounded-full px-3 py-1 text-xs font-medium"></span>
+                    </div>
+
+                    <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4 shadow-sm">
+                        <p class="text-xs font-bold uppercase tracking-wider text-emerald-500">مشتری</p>
+                        <p id="modalCustomerName" class="mt-2 text-sm font-semibold text-emerald-900"></p>
+                        <p id="modalCustomerPhone" class="text-xs text-emerald-700"></p>
+                    </div>
+                </div>
+
+                <!-- Address & Order Details -->
+                <div class="grid gap-4 md:grid-cols-2">
+                    <div class="rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm">
+                        <h3 class="mb-3 font-bold text-emerald-900">آدرس ارسال</h3>
+                        <p id="modalAddress" class="text-sm leading-7 text-gray-600"></p>
+                    </div>
+
+                    <div class="rounded-2xl border border-emerald-100 bg-white p-4 shadow-sm">
+                        <h3 class="mb-3 font-bold text-emerald-900">جزئیات کلی</h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between gap-4">
+                                <span class="text-gray-400">شماره سفارش</span>
+                                <span id="modalOrderId2" class="font-mono text-emerald-700"></span>
+                            </div>
+                            <div class="flex justify-between gap-4">
+                                <span class="text-gray-400">تعداد اقلام</span>
+                                <span id="modalItemsCount" class="font-medium text-emerald-700"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Items -->
+                <div>
+                    <h3 class="mb-3 font-bold text-emerald-900">اقلام سفارش</h3>
+                    <div id="modalItems" class="space-y-3">
+                        <!-- Items will be loaded here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="flex justify-end gap-3 border-t border-emerald-100 px-6 py-4 bg-emerald-50/40 rounded-b-3xl">
+                <button onclick="closeOrderModal()"
+                    class="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 transition-colors duration-200 shadow-sm">
+                    بستن
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <footer class="bg-green-900 text-white mt-16">
+
+        <div class="max-w-7xl mx-auto text-center px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-10 text-sm">
+
+            <div>
+                <p class="font-bold text-lg mb-3">صفحات</p>
+                <a class="block hover:text-green-300 transition" href="./admin.html">خانه</a>
+                <a class="block hover:text-green-300 transition" href="#">درباره ما</a>
+            </div>
+
+            <div>
+                <p class="font-bold text-lg mb-3 text-center">ارتباط با ما</p>
+                <a class="block hover:text-green-300 transition text-center" href="#">اینستاگرام</a>
+                <a class="block hover:text-green-300 transition text-center" href="#">تلگرام</a>
+                <a class="block hover:text-green-300 transition text-center" href="#">ایتا</a>
+            </div>
+
+            <div>
+                <p class="font-bold text-lg mb-3">فروشگاه</p>
+                <a class="block hover:text-green-300 transition" href="#">محصولات</a>
+                <a class="block hover:text-green-300 transition" href="#">دسته‌بندی‌ها</a>
+            </div>
+
+        </div>
+
+        <div>
+            <a class="block hover:text-green-300 text-center transition" href="https://modernitoweb.ir/">طراحی و
+                توسعه
+                توسط مدرنیتو</a>
+        </div>
+        <br>
+    </footer>
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+            }
+        });
+
+        // ۳. کد منوی کنار عکس (سمت چپ) - اضافه شده
+        const profileBtn = document.getElementById('profileBtn');
+        const userProfileDropdown = document.getElementById('userProfileDropdown');
+        const profileArrow = document.getElementById('profileArrow');
+
+        profileBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userProfileDropdown.classList.toggle('hidden');
+            userProfileDropdown.classList.toggle('flex');
+            profileArrow.classList.toggle('rotate-180');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!userProfileDropdown.contains(e.target) && !profileBtn.contains(e.target)) {
+                userProfileDropdown.classList.add('hidden');
+                userProfileDropdown.classList.remove('flex');
+                profileArrow.classList.remove('rotate-180');
+            }
+        });
+    </script>
+    <script>
+        const modalOverlay = document.getElementById('orderModalOverlay');
+        const modalContent = document.getElementById('orderModalContent');
+        let isModalOpen = false; // برای جلوگیری از اجرای همزمان انیمیشن‌ها
+
+        function openOrderModal(data) {
+            if (isModalOpen) return;
+            isModalOpen = true;
+
+            // Populate modal with data
+            document.getElementById('modalOrderId').textContent = data.orderId;
+            document.getElementById('modalOrderId2').textContent = data.orderId;
+            // Format amount with commas and 'Toman' suffix
+            document.getElementById('modalAmount').textContent = data.amount.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' تومان';
+            document.getElementById('modalCustomerName').textContent = data.customerName;
+            document.getElementById('modalCustomerPhone').textContent = data.customerPhone;
+            document.getElementById('modalAddress').textContent = data.address;
+            document.getElementById('modalItemsCount').textContent = data.items.length + ' عدد';
+
+            // Status element styling
+            const statusEl = document.getElementById('modalStatus');
+            statusEl.textContent = data.status;
+            // Dynamically set classes for status badge
+            statusEl.className = `mt-2 inline-flex rounded-full px-3 py-1 text-xs font-medium ${data.statusClass}`;
+
+            // Populate order items with animations
+            const itemsContainer = document.getElementById('modalItems');
+            itemsContainer.innerHTML = data.items.map((item, index) => `
+      <div class="flex items-center justify-between rounded-2xl border border-emerald-100 p-4 hover:bg-emerald-50 transition-colors duration-200 animate-card" style="animation-delay: ${index * 0.08}s;">
+        <div>
+          <p class="font-semibold text-gray-900">${item.name}</p>
+          <p class="text-xs text-gray-500">رنگ: ${item.color}</p>
+          <p class="text-xs text-gray-500">تعداد: ${item.qty}</p>
+        </div>
+        <div class="text-left">
+          <p class="font-semibold text-gray-900">${item.price.replace(/\B(?=(\d{3})+(?!\d))/g, ",")} تومان</p>
+        </div>
+      </div>
+    `).join('');
+
+            // Show modal with animation
+            modalOverlay.classList.remove('hidden');
+            modalOverlay.style.display = 'flex'; // Use flex for centering
+
+            // Trigger the animation using requestAnimationFrame for smoother effect
+            requestAnimationFrame(() => {
+                modalOverlay.style.opacity = '1';
+                modalContent.style.opacity = '1';
+                modalContent.style.transform = 'translateY(0) scale(1)';
+            });
+
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeOrderModal() {
+            if (!isModalOpen) return;
+
+            // Start closing animation
+            modalOverlay.style.opacity = '0';
+            modalContent.style.opacity = '0';
+            modalContent.style.transform = 'translateY(20px) scale(0.98)';
+
+            // Hide modal after animation completes
+            setTimeout(() => {
+                modalOverlay.style.display = 'none';
+                isModalOpen = false;
+                document.body.style.overflow = ''; // Restore background scrolling
+            }, 400); // Match the transition duration defined in CSS/styles
+        }
+
+        // Close modal on backdrop click
+        modalOverlay.addEventListener('click', (e) => {
+            // Check if the click was directly on the overlay and not on the content
+            if (e.target === modalOverlay) {
+                closeOrderModal();
+            }
+        });
+
+        // Close modal on Escape key press
+        document.addEventListener('keydown', (e) => {
+            // Ensure modal is visible before closing
+            if (e.key === 'Escape' && modalOverlay.style.display !== 'none') {
+                closeOrderModal();
+            }
+        });
+
+    </script>
+
+
+</body>
+
+</html>

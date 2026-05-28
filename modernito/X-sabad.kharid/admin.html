@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>افزودن محصول</title>
+    <link rel="stylesheet" href="tailwind.min.css" />
+    <!-- فونت ایران‌سانس (اختیاری اما پیشنهاد می‌شود) -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&display=swap');
+
+        * {
+            font-family: "Vazirmatn", sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100">
+    <header
+        class="relative w-full h-32 sm:h-48 md:h-64 lg:h-[300px] flex items-center justify-center  overflow-hidden bg-no-repeat bg-center bg-contain sm:bg-cover"
+        style="background-image: url('./assets/img/heder.jpg'); background-position: center top;">
+        <div class="absolute inset-0 bg-black/40"></div>
+
+        <nav class="absolute top-0 right-2/2 translate-x-1/2 z-10 flex flex-wrap justify-center gap-6 sm:gap-4 md:gap-8
+                bg-white/70 backdrop-blur-md rounded-full px-3 sm:px-5 md:px-8 py-2
+                text-[5px] sm:text-sm md:text-sm lg:text-2xl font-semibold shadow-md">
+            <a href="./admin.html" class="text-black  transition hover:text-green-300">خانه</a>
+            <a href="#" class="text-black  transition hover:text-green-300">محصولات</a>
+            <a href="#" class="text-black  transition hover:text-green-300">درباره ما</a>
+            <a href="#" class="text-black  transition hover:text-green-300">مقالات</a>
+        </nav>
+    </header>
+
+
+
+  <section class="max-w-7xl mx-auto px-4 py-12 md:mt-20">
+
+    <div class="flex flex-col lg:flex-row-reverse gap-10">
+
+        <!-- فرم افزودن محصول -->
+        <div class="bg-white shadow-xl rounded-xl p-7 w-full lg:w-[620px]">
+            <h2 class="text-2xl font-bold text-gray-700 mb-6">
+                افزودن محصول جدید
+            </h2>
+
+            <form id="productForm" class="flex flex-col gap-5">
+
+                <div>
+                    <label class="font-semibold text-sm">نام محصول</label>
+                    <input id="productName" type="text"
+                        class="w-full mt-1 border border-green-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-600 focus:border-green-600 outline-none">
+                </div>
+
+                <div>
+                    <label class="font-semibold text-sm">قیمت (تومان)</label>
+                    <input id="productPrice" type="number"
+                        class="w-full mt-1 border border-green-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-600 focus:border-green-600 outline-none">
+                </div>
+
+                <div>
+                    <label class="font-semibold text-sm">دسته‌بندی</label>
+                    <select id="productCategory"
+                        class="w-full mt-1 border border-green-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-600 focus:border-green-600 outline-none">
+                        <option value="">انتخاب کنید</option>
+                        <option value="گل">گل</option>
+                        <option value="دسته ۱">دسته ۱</option>
+                        <option value="دسته ۲">دسته ۲</option>
+                        <option value="دسته ۳">دسته ۳</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="font-semibold text-sm">توضیحات محصول</label>
+                    <textarea id="productDescription" rows="4"
+                        class="w-full mt-1 border border-green-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-green-600 focus:border-green-600 outline-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="font-semibold text-sm block mb-1">تصویر محصول</label>
+
+                    <label for="productImage"
+                        class="w-full mt-1 border-2 border-dashed border-green-300 rounded-lg px-4 py-8 bg-gray-50 
+                        cursor-pointer flex flex-col items-center justify-center gap-2 hover:border-blue-400 hover:bg-blue-50 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-green-400" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 16.5V19a2 2 0 002 2h14a2 2 0 002-2v-2.5M16 7l-4-4m0 0L8 7m4-4v12" />
+                        </svg>
+
+                        <span class="text-green-600 text-sm">برای آپلود تصویر کلیک کنید</span>
+                        <span class="text-green-400 text-xs">PNG, JPG, JPEG</span>
+                    </label>
+
+                    <input id="productImage" type="file" class="hidden" accept="image/*">
+                </div>
+
+                <button type="submit"
+                    class="mt-3 bg-green-700 hover:bg-green-800 text-white py-3 rounded-lg font-semibold text-lg transition">
+                    افزودن محصول
+                </button>
+            </form>
+        </div>
+
+        <!-- کارت پیش‌نمایش محصول -->
+        <div class="bg-white shadow-xl rounded-xl p-7 w-full lg:w-[360px] h-fit">
+            <h3 class="font-bold text-gray-700 mb-4 text-2xl">
+                پیش‌نمایش محصول
+            </h3>
+
+            <img id="previewImage" src="assets/img/boxgol1.png" alt="product" class="rounded-xl w-full mb-5 shadow-sm">
+
+            <h2 id="previewName" class="text-2xl font-bold text-gray-800">
+                نام محصول
+            </h2>
+
+            <p id="previewPrice" class="text-green-700 font-bold text-xl mt-2">
+                ۱,۲۵۰,۰۰۰ تومان
+            </p>
+
+            <p id="previewCategory" class="text-sm text-gray-500 mt-1">
+                دسته‌بندی: گل
+            </p>
+
+            <p id="previewDescription" class="text-sm text-gray-600 mt-4 leading-7">
+                این یک پیش‌نمایش محصول است. اطلاعات محصول که وارد می‌کنید در این قسمت نمایش داده خواهد شد.
+            </p>
+
+            <hr class="my-6">
+
+            <div class="grid grid-cols-2 gap-3 text-sm leading-7">
+                <p>وضعیت موجودی</p>
+                <p id="previewStock" class="text-left text-gray-700">موجود</p>
+
+                <p>وزن</p>
+                <p id="previewWeight" class="text-left text-gray-700">-</p>
+
+                <p>ارسال</p>
+                <p id="previewShipping" class="text-left text-gray-700">۲ تا ۵ روز</p>
+
+                <p>بازگشت</p>
+                <p id="previewReturn" class="text-left text-gray-700">۷ روز ضمانت</p>
+            </div>
+
+            <button
+                class="mt-6 w-full bg-green-700 hover:bg-green-800 text-white py-3 rounded-lg font-semibold text-lg transition">
+                مشاهده در فروشگاه
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- ========================================= -->
+    <!-- Footer -->
+    <!-- ========================================= -->
+
+    <footer class="bg-green-900 text-white mt-16">
+
+        <div class="max-w-7xl mx-auto text-center px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-10 text-sm">
+
+            <div>
+                <p class="font-bold text-lg mb-3">صفحات</p>
+                <a class="block hover:text-green-300 transition" href="./admin.html">خانه</a>
+                <a class="block hover:text-green-300 transition" href="#">درباره ما</a>
+            </div>
+
+            <div>
+                <p class="font-bold text-lg mb-3 text-ceneter">ارتباط با ما</p>
+                <a class="block hover:text-green-300 transition text-ceneter" href="#">اینستاگرام</a>
+                <a class="block hover:text-green-300 transition text-ceneter" href="#">تلگرام</a>
+                <a class="block hover:text-green-300 transition text-ceneter" href="#">ایتا</a>
+            </div>
+
+            <div>
+                <p class="font-bold text-lg mb-3">فروشگاه</p>
+                <a class="block hover:text-green-300 transition" href="#">محصولات</a>
+                <a class="block hover:text-green-300 transition" href="#">دسته‌بندی‌ها</a>
+            </div>
+
+        </div>
+
+        <div>
+            <a class="block  hover:text-green-300 text-center transition" href="https://modernitoweb.ir/">طراحی و توسعه
+                توسط مدرنیتو</a>
+        </div>
+
+    </footer>
+<script>
+    const form = document.getElementById('productForm');
+
+    const productName = document.getElementById('productName');
+    const productPrice = document.getElementById('productPrice');
+    const productCategory = document.getElementById('productCategory');
+    const productDescription = document.getElementById('productDescription');
+    const productImage = document.getElementById('productImage');
+
+    const previewName = document.getElementById('previewName');
+    const previewPrice = document.getElementById('previewPrice');
+    const previewCategory = document.getElementById('previewCategory');
+    const previewDescription = document.getElementById('previewDescription');
+    const previewImage = document.getElementById('previewImage');
+
+    // سینک لحظه‌ای متن‌ها
+    productName.addEventListener('input', () => {
+        previewName.textContent = productName.value || 'نام محصول';
+    });
+
+    productPrice.addEventListener('input', () => {
+        if (productPrice.value) {
+            previewPrice.textContent = Number(productPrice.value).toLocaleString('fa-IR') + ' تومان';
+        } else {
+            previewPrice.textContent = '۱,۲۵۰,۰۰۰ تومان';
+        }
+    });
+
+    productCategory.addEventListener('change', () => {
+        previewCategory.textContent = 'دسته‌بندی: ' + (productCategory.value || 'گل');
+    });
+
+    productDescription.addEventListener('input', () => {
+        previewDescription.textContent = productDescription.value || 'این یک پیش‌نمایش محصول است. اطلاعات محصول که وارد می‌کنید در این قسمت نمایش داده خواهد شد.';
+    });
+
+    // نمایش تصویر انتخابی
+    productImage.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // جلوگیری از رفرش و ثبت نهایی
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        alert('محصول با موفقیت به پیش‌نمایش اضافه شد!');
+    });
+</script>
+
+</body>
+
+</html>

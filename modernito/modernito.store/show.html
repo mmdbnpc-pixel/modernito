@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نمایش فروشگاه</title>
+    <link rel="stylesheet" href="tailwind.min.css" />
+    <style>
+
+       
+
+        /* انیمیشن fade-in */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .animate-fade-in.delay-1 { animation-delay: 0.2s; }
+        .animate-fade-in.delay-2 { animation-delay: 0.4s; }
+        .animate-fade-in.delay-3 { animation-delay: 0.6s; }
+        .animate-fade-in.delay-4 { animation-delay: 0.8s; }
+        .animate-fade-in.delay-5 { animation-delay: 1s; }
+
+        body { overflow-x: hidden; }
+    </style>
+    <style>
+        @font-face {
+            font-family: "Vazirmatn";
+            src: url("./font/Farsi-Digits-Without-Latin/Vazir-Bold-FD-WOL.eot") format("woff2");
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: "Vazirmatn";
+            src: url("./font/Farsi-Digits-Without-Latin/Vazir-Bold-FD-WOL.eot") format("woff2");
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: "Vazirmatn";
+            src: url("./font/Farsi-Digits-Without-Latin/Vazir-Bold-FD-WOL.eot") format("woff2");
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        body {
+            font-family: "Vazirmatn", sans-serif;
+        }
+    </style>
+
+    <style>
+        * {
+            font-family: "Vazirmatn", sans-serif;
+        }
+
+        /* انیمیشن fade-in */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .animate-fade-in.delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .animate-fade-in.delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .animate-fade-in.delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        .animate-fade-in.delay-4 {
+            animation-delay: 0.8s;
+        }
+
+        .animate-fade-in.delay-5 {
+            animation-delay: 1s;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+    </style>
+
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- هدر -->
+    <header
+        class="relative w-full h-32 sm:h-48 md:h-64 lg:h-[300px] flex items-center justify-center overflow-hidden bg-no-repeat bg-center bg-contain sm:bg-cover"
+        style="background-image: url('./img/heder.jpg'); background-position: center top;">
+
+        <div class="absolute inset-0 bg-black/40"></div>
+
+        <nav class="absolute top-0 right-2/2 translate-x-1/2 z-10 flex flex-wrap justify-center gap-6 sm:gap-4 md:gap-8
+            bg-white/70 backdrop-blur-md rounded-full px-3 sm:px-5 md:px-8 py-2
+            text-[10px] sm:text-sm md:text-sm lg:text-2xl font-semibold shadow-md">
+
+            <a href="./admin.html" class="text-black transition hover:text-green-300">خانه</a>
+            <a href="#" class="text-black transition hover:text-green-300">محصولات</a>
+            <a href="#" class="text-black transition hover:text-green-300">درباره ما</a>
+            <a href="#" class="text-black transition hover:text-green-300">مقالات</a>
+
+        </nav>
+    </header>
+
+    <main class="flex-grow px-4 sm:px-6 md:px-8 py-8">
+
+        <div class="max-w-2xl w-full mx-auto">
+
+            <div class="bg-green-100 rounded-xl shadow-md p-4 sm:p-6 text-center mb-5 animate-fade-in delay-1">
+                <h1 id="brandName" class="text-xl sm:text-2xl md:text-3xl font-bold text-green-800">در حال بارگذاری...
+                </h1>
+            </div>
+
+            <div class="bg-green-100 rounded-xl shadow-md p-3 sm:p-4 mb-5 animate-fade-in delay-2">
+                <img id="banner" class="w-full h-40 sm:h-48 md:h-56 object-cover rounded-lg" alt="بنر فروشگاه">
+            </div>
+
+            <div class="bg-green-100 rounded-xl shadow-md p-4 sm:p-6 flex justify-center mb-5 animate-fade-in delay-3">
+                <img id="logo"
+                    class="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full border-4 border-white shadow-lg"
+                    alt="لوگو فروشگاه">
+            </div>
+
+            <div class="bg-green-100 rounded-xl shadow-md p-4 sm:p-6 text-center mb-5 animate-fade-in delay-4">
+                <p class="font-semibold text-base sm:text-lg text-green-800">
+                    دسته‌بندی:
+                    <span id="category" class="text-green-900 font-normal">-</span>
+                </p>
+            </div>
+
+            <div class="bg-green-100 rounded-xl shadow-md p-4 sm:p-6 text-center animate-fade-in delay-5">
+                <p id="description" class="text-green-900 text-sm sm:text-base leading-relaxed">-</p>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-green-900 text-white mt-16">
+        <div class="max-w-7xl mx-auto text-center px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-10 text-sm">
+            <div>
+                <p class="font-bold text-lg mb-3">صفحات</p>
+                <a class="block hover:text-green-300 transition" href="./admin.html">خانه</a>
+                <a class="block hover:text-green-300 transition" href="#">درباره ما</a>
+            </div>
+            <div>
+                <p class="font-bold text-lg mb-3 text-ceneter">ارتباط با ما</p>
+                <a class="block hover:text-green-300 transition text-ceneter" href="#">اینستاگرام</a>
+                <a class="block hover:text-green-300 transition text-ceneter" href="#">تلگرام</a>
+                <a class="block hover:text-green-300 transition text-ceneter" href="#">ایتا</a>
+            </div>
+            <div>
+                <p class="font-bold text-lg mb-3">فروشگاه</p>
+                <a class="block hover:text-green-300 transition" href="#">محصولات</a>
+                <a class="block hover:text-green-300 transition" href="#">دسته‌بندی‌ها</a>
+            </div>
+        </div>
+        <div>
+            <a class="block hover:text-green-300 text-center transition" href="https://modernitoweb.ir/">طراحی و توسعه
+                توسط مدرنیتو</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // دریافت پارامتر ID از URL (مثلاً show.html?id=1)
+            const urlParams = new URLSearchParams(window.location.search);
+            const storeId = urlParams.get('id');
+            const storeName = urlParams.get('name');
+
+            const brandNameEl = document.getElementById("brandName");
+            const bannerEl = document.getElementById("banner");
+            const logoEl = document.getElementById("logo");
+            const categoryEl = document.getElementById("category");
+            const descriptionEl = document.getElementById("description");
+
+            // تابع برای نمایش داده‌ها
+            function displayData(data) {
+                if (data) {
+                    brandNameEl.textContent = data.name || "نام فروشگاه";
+                    bannerEl.src = data.banner || "https://via.placeholder.com/600x200?text=بنر";
+                    logoEl.src = data.logo || "https://via.placeholder.com/150?text=لوگو";
+                    categoryEl.textContent = data.category || "بدون دسته‌بندی";
+                    descriptionEl.textContent = data.description || "توضیحاتی موجود نیست.";
+                } else {
+                    brandNameEl.textContent = "فروشگاه یافت نشد";
+                    bannerEl.src = "";
+                    logoEl.src = "";
+                    categoryEl.textContent = "-";
+                    descriptionEl.textContent = "اطلاعاتی برای نمایش وجود ندارد.";
+                }
+            }
+
+            // اگر ID یا نام در URL باشد، از API بگیر
+            if (storeId || storeName) {
+                let apiUrl = "https://modernitoweb.ir//marketplace-api/shops.php";
+
+                // اگر ID داریم، از آن استفاده کن، اگر نه از نام
+                if (storeId) {
+                    apiUrl += `?id=${storeId}`;
+                } else if (storeName) {
+                    apiUrl += `?name=${encodeURIComponent(storeName)}`;
+                }
+
+                fetch(apiUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('خطا در دریافت اطلاعات');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // فرض بر این است که API یک آبجکت یا آرایه برمی‌گرداند
+                        // اگر API آرایه برمی‌گرداند، باید اولین آیتم را بگیریم
+                        const storeData = Array.isArray(data) ? data[0] : data;
+                        displayData(storeData);
+                    })
+                    .catch(error => {
+                        console.error('خطا:', error);
+                        brandNameEl.textContent = "خطا در بارگذاری اطلاعات";
+                        descriptionEl.textContent = "متاسفانه اطلاعات فروشگاه بارگذاری نشد.";
+                    });
+            } else {
+                // اگر هیچ پارامتری در URL نبود، از localStorage چک کن (برای تست)
+                const localData = localStorage.getItem("storeData");
+                if (localData) {
+                    const data = JSON.parse(localData);
+                    displayData(data);
+                } else {
+                    brandNameEl.textContent = "هیچ اطلاعاتی یافت نشد";
+                    descriptionEl.textContent = "لطفاً ابتدا یک فروشگاه را ثبت کنید.";
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
